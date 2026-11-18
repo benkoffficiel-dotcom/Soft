@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2D73B9">
 <title>Maquette Soft RDC</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -411,7 +417,66 @@ body.in-app .page-head .subtabs{display:none !important}
 .note{display:flex;gap:10px;align-items:flex-start;background:var(--yellow-soft);border:1px solid var(--yellow);border-radius:10px;padding:10px 12px;font-size:.88rem}
 .offline-bar{background:var(--amber-soft);border-bottom:1px solid var(--amber);font-size:.86rem;font-weight:600;padding-block:8px}
 .foot{color:var(--muted);font-size:.8rem;margin-top:24px}
+
+/* ===== Mobile first : téléphone ===== */
+@media screen and (max-width:640px){
+  body{font-size:15.5px}
+  main{padding-block:12px 40px}
+  .top-row{flex-wrap:nowrap;gap:6px;padding-block:8px}
+  .brand{gap:8px}
+  .brand .logo{width:36px;height:36px}
+  .brand b{font-size:1rem;white-space:nowrap}
+  .tools{gap:4px;flex-wrap:nowrap}
+  .tools .tools{gap:0}
+  #netTxt{display:none}
+  .chip-net{padding:9px;min-width:34px;justify-content:center}
+  .user-chip{padding:3px;background:transparent;border:0}
+  .user-chip .un{display:none}
+  .user-chip .btn{min-height:36px;padding:0 8px;font-size:.78rem;white-space:nowrap}
+  .chip-net{padding:8px;min-width:30px}
+  .brand b{overflow:hidden;text-overflow:ellipsis}
+  #resetBtn{font-size:0;width:38px;min-height:36px;padding:0;display:grid;place-items:center}
+  #resetBtn::before{content:"↺";font-size:19px;line-height:1}
+  .site-nav > a:first-child,.site-nav .lang{display:none}
+  .pub-nav{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .pub-nav::-webkit-scrollbar{display:none}
+  .pub-nav a{white-space:nowrap;padding:12px 12px;font-size:.92rem}
+  .hero{gap:18px;padding-block:14px 8px}
+  .hero h1{font-size:2rem}
+  .hero p{font-size:1rem}
+  .hero .btn{flex:1 1 100%;justify-content:center}
+  .hero-art{max-width:230px;order:-1}
+  .seg-pill{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;width:auto;scrollbar-width:none}
+  .seg-pill button{white-space:nowrap}
+  .panel{padding:14px}
+  .section-t,.pub-sec h2{font-size:1.25rem}
+  /* Barre d'icônes fixée en bas, comme une appli mobile money */
+  body.in-app{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  body.in-app .navbar{position:fixed;left:0;right:0;bottom:0;z-index:30;margin:0;border-radius:0;display:flex;gap:2px;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));overflow-x:auto;scrollbar-width:none;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(0,0,0,.08)}
+  body.in-app .navbar::-webkit-scrollbar{display:none}
+  body.in-app .navbar button{flex:1 0 74px;max-width:96px;flex-direction:column;gap:4px;padding:8px 4px;font-size:.7rem;line-height:1.15;min-height:64px;border-radius:12px}
+  body.in-app .navbar button svg{width:24px;height:24px}
+  body.in-app .navbar button[aria-current="page"]{background:var(--blue-soft);box-shadow:none;border-color:transparent}
+  body.in-app .navbar .nb{position:absolute;top:4px;right:calc(50% - 22px);min-width:18px;height:18px;font-size:.66rem}
+  body.in-app #toasts{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+  #toasts .toast:not(:last-child){display:none}
+  /* Tableaux lisibles en cartes */
+  .tbl-wrap{overflow:visible}
+  .tbl-wrap table,.tbl-wrap tbody,.tbl-wrap tr,.tbl-wrap td{display:block;width:100%}
+  .tbl-wrap thead{display:none}
+  .tbl-wrap tbody tr{border:1px solid var(--line);border-radius:12px;padding:6px 12px;margin-bottom:10px;background:var(--surface)}
+  .tbl-wrap td{display:flex;justify-content:space-between;align-items:center;gap:12px;border:0;padding:6px 0;text-align:right}
+  .tbl-wrap td::before{content:attr(data-label);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:left;flex:none;max-width:45%}
+  .tbl-wrap td:not([data-label])::before{content:none}
+  .tbl-wrap td:not([data-label]){justify-content:flex-end}
+  .tbl-wrap tfoot{display:block}
+  .tbl-wrap tfoot tr{display:flex;justify-content:space-between;flex-wrap:wrap;padding:6px 4px}
+  .tbl-wrap tfoot td{display:block;width:auto;border:0;padding:4px 0}
+  .modal-card{max-height:92vh;overflow-y:auto}
+}
 </style>
+</head>
+<body>
 
 <header class="top">
   <div class="wrap top-row">
@@ -674,7 +739,7 @@ function renderNav(){
   const titles={qr:'QR code d’entrée',accueil:'Accueil et caisse',infirmier:'Infirmier',medecin:'Médecin',patient:'Mon espace',direction:'Direction','dr-soft':'Dr Soft · réseau'};
   const showPub=home&&!UI.session;$('#roles').hidden=!showPub;$('#roles').className=showPub?'pub-nav':'wrap roles';
   const se=UI.session,a=se&&se.type==='agent'&&agentOf(se.id),pp=se&&se.type==='patient'&&P(se.id);
-  $('#authBox').innerHTML=se?`<span class="user-chip">${esc(a?a.prenom+' '+a.nomFam:pp.prenom||pp.nom)} <small>${a?ROLE_LBL[a.role]+(a.site?' · '+esc(siteOf(a.site).nom):''):'Patient · '+pp.dossier}</small>${cur==='home'?`<a class="btn sm primary" href="#menu">Mon menu</a>`:''}<button class="btn sm ghost" data-act="logout">Se déconnecter</button></span>`
+  $('#authBox').innerHTML=se?`<span class="user-chip"><span class="un">${esc(a?a.prenom+' '+a.nomFam:pp.prenom||pp.nom)}</span> <small>${a?ROLE_LBL[a.role]+(a.site?' · '+esc(siteOf(a.site).nom):''):'Patient · '+pp.dossier}</small>${cur==='home'?`<a class="btn sm primary" href="#menu">Mon menu</a>`:''}<button class="btn sm ghost" data-act="logout">Déconnexion</button></span>`
     :`<nav class="site-nav"><a href="#home" data-act="pubGo" data-v="apropos">À propos</a><span class="lang">${icon('globe')} FR</span><a href="#home" data-act="hv" data-v="choose" class="btn sm btn-out">${'Se connecter'}</a></nav>`;
   $('#netChip').hidden=home;
   $('#roles').innerHTML=showPub?`<a href="#home" data-act="pubGo" data-v="centres">Nos centres</a><a href="#home" data-act="pubGo" data-v="soins">Nos services</a><a href="#home" data-act="pubGo" data-v="contact">Contact</a><a href="#qr">Arrivée par QR code <span class="new">Nouveau</span></a><a href="#home" data-act="hv" data-v="loginAgent">Espace agent</a>`:'';
@@ -701,6 +766,7 @@ function render(){
   if(inApp)html=r==='menu'?`<div class="menu-wrap">${html}${navBar(r)}</div>`:navBar(r)+html;
   app.innerHTML=html;
   after[r]&&after[r]();
+  $$('#app table').forEach(t=>{const h=[...t.querySelectorAll('thead th')].map(x=>x.textContent.trim());t.querySelectorAll('tbody tr').forEach(r=>[...r.children].forEach((c,i)=>{if(h[i]&&c.colSpan===1)c.dataset.label=h[i]}))});
   document.body.classList.toggle('in-app',r!=='home'&&!(r==='qr'&&!UI.session));
   if(document.body.classList.contains('in-app'))decorate(app);
 }
@@ -1494,3 +1560,6 @@ document.addEventListener('submit',e=>{const f=e.target.closest('[data-form]');i
 window.addEventListener('hashchange',()=>{if(UI.navKey&&window.__T&&window.__T[UI.navKey]?.go!==location.hash.slice(1))UI.navKey=null;render();window.scrollTo(0,0)});
 render();
 </script>
+
+</body>
+</html>
